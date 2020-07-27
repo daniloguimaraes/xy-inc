@@ -1,9 +1,9 @@
 package com.xyinc.poiservice.service.impl
 
 import com.xyinc.poiservice.model.PointOfInterest
+import org.amshove.kluent.shouldBeFalse
+import org.amshove.kluent.shouldBeTrue
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.Assertions.assertFalse
 
 /**
  * Unit testing for PoiServiceImpl
@@ -18,59 +18,111 @@ class PoiServiceImplTest {
 
 
     @Test
-    fun `Validate A Valid PointOfInterest Must Return True`() {
+    fun `Given a valid PointOfInterest, when validate it, then must return True`() {
+        // GIVEN
         val poi = createPointOfInterest(1L, validPoiName, 10, 10);
 
-        assertTrue(sut.validate(poi));
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeTrue();
     }
 
     @Test
-    fun `Validate A PointOfInterest Without Id Must Return True`() {
+    fun `Given a PointOfInterest without ID, when validate it, then must return True`() {
+        // GIVEN
         val poi = createPointOfInterest(name = validPoiName, xCoordinate = 10, yCoordinate =  10);
 
-        assertTrue(sut.validate(poi));
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeTrue();
     }
 
     @Test
-    fun `Validate A Zero XCoordinate PointOfInterest Must Return True`() {
+    fun `Given a PointOfInterest with XCoordinate equals 0, when validate it, then must return True`() {
+        // GIVEN
         val poi = createPointOfInterest(1L, validPoiName, 0, 10);
 
-        assertTrue(sut.validate(poi));
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeTrue();
     }
 
     @Test
-    fun `Validate A Negative XCoordinate PointOfInterest Must Return False`() {
+    fun `Given a PointOfInterest with negative XCoordinate, when validate it, then must return False`() {
+        // GIVEN
         val poi = createPointOfInterest(1L, validPoiName, -10, 10);
 
-        assertFalse(sut.validate(poi));
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeFalse();
     }
 
     @Test
-    fun `Validate A Negative YCoordinate PointOfInterest Must Return False`() {
+    fun `Given a PointOfInterest with negative YCoordinate, when validate it, then must return False`() {
+        // GIVEN
         val poi = createPointOfInterest(1L, validPoiName, 10, -10);
 
-        assertFalse(sut.validate(poi));
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeFalse();
     }
 
     @Test
-    fun `Validate PointOfInterest With Both X and Y Coordinate As Negative Numbers Must Return False`() {
+    fun `Given a PointOfInterest with both X and Y Coordinates as Negative, when validate it, then must return False`() {
+        // GIVEN
         val poi = createPointOfInterest(1L, validPoiName, -10, -10);
 
-        assertFalse(sut.validate(poi));
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeFalse();
     }
 
     @Test
-    fun `Validate An Unnamed PointOfInterest Must Return False`() {
+    fun `Given an unnamed PointOfInterest, when validate it, then must return False`() {
+        // GIVEN
         val poi = createPointOfInterest(id = 1L, xCoordinate = 10, yCoordinate = 10);
 
-        assertFalse(sut.validate(poi));
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeFalse();
     }
 
     @Test
-    fun `Validate A PointOfInterest Without XCoordinate Must Return False`() {
-        val poi = createPointOfInterest(id = 1L, name = "An Awesome Place", yCoordinate = 10);
+    fun `Given a PointOfInterest without XCoordinate, when validate it, then must return False`() {
+        // GIVEN
+        val poi = createPointOfInterest(id = 1L, name = validPoiName, yCoordinate = 10);
 
-        assertFalse(sut.validate(poi));
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeFalse();
+    }
+
+    @Test
+    fun `Given a PointOfInterest without YCoordinate, when validate it, then must return False`() {
+        // GIVEN
+        val poi = createPointOfInterest(id = 1L, name = validPoiName, xCoordinate = 10);
+
+        // WHEN
+        val validateResult = sut.validate(poi);
+
+        // THEN
+        validateResult.shouldBeFalse();
     }
 
     private fun createPointOfInterest(

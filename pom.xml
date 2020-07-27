@@ -60,9 +60,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jetbrains.kotlin</groupId>
-			<artifactId>kotlin-test-common</artifactId>
-			<version>${kotlin.version}</version>
+			<groupId>org.amshove.kluent</groupId>
+			<artifactId>kluent</artifactId>
+			<version>1.15</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -121,5 +121,12 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>jcenter</id>
+			<url>https://jcenter.bintray.com/</url>
+		</repository>
+	</repositories>
 
 </project>
