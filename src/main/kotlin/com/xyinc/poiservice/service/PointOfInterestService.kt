@@ -14,9 +14,24 @@ interface PointOfInterestService {
      * must have a name.
      *
      * @param poi the PointOfInterest to be validated.
-     * @return `true` case the PointOfInterest is valid, `false` otherwise.
+     * @throws InvalidPointOfInterestException case the PointOfInterest is invalid
      *
      */
-    fun validate(poi : PointOfInterest): Boolean;
+    fun validate(poi : PointOfInterest);
+
+    /**
+     * Returns all point of interests
+     *
+     * @return all point of interests
+     */
+    fun findAll(): List<PointOfInterest>;
+
+    /**
+     * Adds a new Point of Interest.
+     *
+     * @param poi the point of interest to be added
+     * @return the added point of interest
+     */
+    fun add(poi: PointOfInterest): PointOfInterest;
 
 }
