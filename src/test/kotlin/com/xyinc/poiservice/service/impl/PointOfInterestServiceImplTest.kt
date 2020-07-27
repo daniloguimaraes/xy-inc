@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test
  *
  * @author Danilo Guimaraes
  */
-class PoiServiceImplTest {
+class PointOfInterestServiceImplTest {
 
     private val validPoiName : String = "An Awesome Place";
 
-    private val sut: PoiServiceImpl = PoiServiceImpl();
+    private val sut: PointOfInterestServiceImpl = PointOfInterestServiceImpl();
 
 
     @Test

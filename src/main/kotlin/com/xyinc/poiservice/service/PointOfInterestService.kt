@@ -7,7 +7,7 @@ import com.xyinc.poiservice.model.PointOfInterest
  *
  * @author Danilo Guimaraes
  */
-interface PoiService {
+interface PointOfInterestService {
 
     /**
      * Validates a {@link PointOfInterest}, which X and Y coordinates must to be a non-negative integer and also
