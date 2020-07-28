@@ -22,6 +22,4 @@ data class PointOfInterest(
         var xCoordinate: Int,
 
         @Column(nullable = false)
-        var yCoordinate: Int) {
-
-}
+        var yCoordinate: Int)

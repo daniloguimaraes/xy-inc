@@ -4,6 +4,7 @@ import com.xyinc.poiservice.exception.InvalidPointOfInterestException
 import com.xyinc.poiservice.model.PointOfInterest
 import com.xyinc.poiservice.repository.PointOfInterestRepository
 import com.xyinc.poiservice.service.PointOfInterestService
+import com.xyinc.poiservice.util.Geometry
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -32,6 +33,12 @@ class PointOfInterestServiceImpl(@Autowired val pointOfInterestRepository: Point
         validate(poi);
 
         return pointOfInterestRepository.save(poi);
+    }
+
+    override fun findAllNearby(xCoordinate: Int, yCoordinate: Int, radius: Int): List<PointOfInterest> {
+        return findAll().filter {
+            Geometry.calculateDistance(it.xCoordinate, it.yCoordinate, xCoordinate, yCoordinate) <= radius
+        }
     }
 
 }

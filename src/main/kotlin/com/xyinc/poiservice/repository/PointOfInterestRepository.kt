@@ -10,6 +10,4 @@ import org.springframework.stereotype.Repository
  * @author Danilo Guimaraes
  */
 @Repository
-interface PointOfInterestRepository : CrudRepository<PointOfInterest, Long> {
-
-}
+interface PointOfInterestRepository : CrudRepository<PointOfInterest, Long>

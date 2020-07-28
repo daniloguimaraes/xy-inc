@@ -34,4 +34,13 @@ interface PointOfInterestService {
      */
     fun add(poi: PointOfInterest): PointOfInterest;
 
+    /**
+     * Returns all points of interest nearby x and y coordinates, not farthest than radius.
+     *
+     * @param xCoordinate the x coordinate
+     * @param yCoordinate the y coordinate
+     * @param radius the max distance radius allowed to be considered.
+     */
+    fun findAllNearby(xCoordinate : Int, yCoordinate: Int, radius: Int) : List<PointOfInterest>;
+
 }
