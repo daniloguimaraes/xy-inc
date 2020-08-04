@@ -1,5 +1,7 @@
 package com.xyinc.poiservice.config
 
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,12 +21,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
  *
  * @author Danilo Guimaraes
  */
+@Api(hidden = true)
 @EnableSwagger2
 @Configuration
 @RestController
 @RequestMapping("/")
 class SwaggerConfig {
 
+    @ApiOperation(value = "", hidden = true)
     @GetMapping(path = ["/doc", "/docs"])
     fun docsRedirect(): View {
         return RedirectView("swagger-ui.html");
