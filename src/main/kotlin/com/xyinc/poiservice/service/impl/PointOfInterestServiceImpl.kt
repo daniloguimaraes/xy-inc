@@ -36,7 +36,18 @@ class PointOfInterestServiceImpl(@Autowired val pointOfInterestRepository: Point
     }
 
     override fun findAllNearby(xCoordinate: Int, yCoordinate: Int, radius: Int): List<PointOfInterest> {
-        return findAll().filter {
+        val minXCoordinate = xCoordinate - radius
+        val maxXCoordinate = xCoordinate + radius
+        val minYCoordinate = yCoordinate - radius
+        val maxYCoordinate = yCoordinate + radius
+
+        val allPointOfInterestInSquare = pointOfInterestRepository.findAllInSquare(
+                minXCoordinate,
+                maxXCoordinate,
+                minYCoordinate,
+                maxYCoordinate)
+
+        return allPointOfInterestInSquare.filter {
             Geometry.calculateDistance(it.xCoordinate, it.yCoordinate, xCoordinate, yCoordinate) <= radius
         }
     }
