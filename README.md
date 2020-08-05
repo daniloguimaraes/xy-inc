@@ -66,3 +66,11 @@ The complete list of available services and it's full-documentation can be found
 ### Testing visually with Desmos
 
 > Soon...
+
+----
+
+### Known issues and pitfalls
+
+List of future improvements (some of them could be created as a Github Issue)
+
+- **no pagination on listing**: when dealing with several records on database, the HTTP response on listing can be extremely large (100k records ~ 6,4Mb) 
