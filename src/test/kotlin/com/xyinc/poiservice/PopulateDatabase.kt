@@ -14,12 +14,14 @@ import org.springframework.web.client.postForEntity
 class PopulateDatabase {
 
     val url: String = "http://localhost:8080/api/poi"
+    val numberOfRecords = 10_000
 
     val restTemplate = RestTemplate();
 
     @Test
     fun name() {
-        for (i in 1..10_000) {
+
+        for (i in 1..numberOfRecords) {
             val pointOfInterest = PointOfInterest(name = randomName(),
                                                   xCoordinate = randomInt(),
                                                   yCoordinate = randomInt())

@@ -63,6 +63,29 @@ The complete list of available services and it's full-documentation can be found
 
 ----
 
+### Populating database with randoms PoI's
+
+You can create a new Point of Interest on the database doing a HTTP POST request. Example using `curl`:
+ 
+```
+curl -d '{"name":"An awesome place!", "xCoordinate": 10, "yCoordinate":10}' -H "Content-Type: application/json" -X POST http://localhost:8080/api/poi
+```
+
+To populate database with multiple randoms Point of Interest (default 10k), start the application, open your terminal and type:
+
+Linux:
+> ./mvnw -Dtest=PopulateDatabase test
+
+Windows:
+> mvnw.bat -Dtest=PopulateDatabase test
+
+Parameters (edit `PopulateDatabase.kt` file if needed):
+
+* `url` : webservice URL (default: `http://localhost:8080/api/poi`)
+* `numberOfRecords`: number of records to be created (default: `10_000`)
+
+----
+
 ### Testing visually with Desmos
 
 > Soon...
