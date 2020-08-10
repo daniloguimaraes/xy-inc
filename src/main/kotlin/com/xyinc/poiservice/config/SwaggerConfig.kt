@@ -31,7 +31,7 @@ class SwaggerConfig {
     @ApiOperation(value = "", hidden = true)
     @GetMapping(path = ["/doc", "/docs"])
     fun docsRedirect(): View {
-        return RedirectView("swagger-ui.html");
+        return RedirectView("swagger-ui.html")
     }
 
     @Bean

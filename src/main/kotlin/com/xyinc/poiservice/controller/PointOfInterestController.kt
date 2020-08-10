@@ -24,13 +24,13 @@ internal class PointOfInterestController(val pointOfInterestService: PointOfInte
     @ApiOperation(value = "Returns all Points of Interest")
     @GetMapping
     fun findAll(pageable: Pageable): ResponseEntity<Page<PointOfInterest>> {
-        return ok(pointOfInterestService.findAll(pageable));
+        return ok(pointOfInterestService.findAll(pageable))
     }
 
     @ApiOperation(value = "Creates a new Point of Interest")
     @PostMapping
     fun add(@RequestBody poi: PointOfInterest): PointOfInterest {
-        return pointOfInterestService.add(poi);
+        return pointOfInterestService.add(poi)
     }
 
     @ApiOperation("Returns all nearby Points of Interest")
@@ -39,7 +39,7 @@ internal class PointOfInterestController(val pointOfInterestService: PointOfInte
                       @PathVariable(required = true) @ApiParam("Y Coordinate") y: Int,
                       @PathVariable @ApiParam(value = "Radius", defaultValue = "10") radius: Int = 10)
             : ResponseEntity<Page<PointOfInterest>> {
-        return ok(pointOfInterestService.findAllNearby(x, y, radius));
+        return ok(pointOfInterestService.findAllNearby(x, y, radius))
     }
 
 }

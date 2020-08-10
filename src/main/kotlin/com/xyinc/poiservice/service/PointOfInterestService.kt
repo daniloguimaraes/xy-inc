@@ -19,14 +19,14 @@ interface PointOfInterestService {
      * @throws InvalidPointOfInterestException case the PointOfInterest is invalid
      *
      */
-    fun validate(poi : PointOfInterest);
+    fun validate(poi : PointOfInterest)
 
     /**
      * Returns all point of interests
      *
      * @return all point of interests
      */
-    fun findAll(pageable: Pageable): Page<PointOfInterest>;
+    fun findAll(pageable: Pageable): Page<PointOfInterest>
 
     /**
      * Adds a new Point of Interest.
@@ -34,7 +34,7 @@ interface PointOfInterestService {
      * @param poi the point of interest to be added
      * @return the added point of interest
      */
-    fun add(poi: PointOfInterest): PointOfInterest;
+    fun add(poi: PointOfInterest): PointOfInterest
 
     /**
      * Returns all points of interest nearby x and y coordinates, not farthest than radius.
@@ -43,6 +43,6 @@ interface PointOfInterestService {
      * @param yCoordinate the y coordinate
      * @param radius the max distance radius allowed to be considered.
      */
-    fun findAllNearby(xCoordinate : Int, yCoordinate: Int, radius: Int) : Page<PointOfInterest>;
+    fun findAllNearby(xCoordinate : Int, yCoordinate: Int, radius: Int) : Page<PointOfInterest>
 
 }

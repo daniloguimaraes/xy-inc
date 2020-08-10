@@ -16,26 +16,26 @@ class PointOfInterestServiceImpl(@Autowired val pointOfInterestRepository: Point
 
     override fun validate(poi: PointOfInterest) {
         if (poi.xCoordinate < 0) {
-            throw InvalidPointOfInterestException("X Coordinate must be greater or equals than 0");
+            throw InvalidPointOfInterestException("X Coordinate must be greater or equals than 0")
         }
 
         if (poi.yCoordinate < 0) {
-            throw InvalidPointOfInterestException("Y Coordinate must be greater or equals than 0");
+            throw InvalidPointOfInterestException("Y Coordinate must be greater or equals than 0")
         }
 
         if (poi.name.isEmpty()) {
-            throw InvalidPointOfInterestException("Name should not be null or empty");
+            throw InvalidPointOfInterestException("Name should not be null or empty")
         }
     }
 
     override fun findAll(pageable: Pageable): Page<PointOfInterest> {
-        return pointOfInterestRepository.findAll(pageable);
+        return pointOfInterestRepository.findAll(pageable)
     }
 
     override fun add(poi: PointOfInterest): PointOfInterest {
-        validate(poi);
+        validate(poi)
 
-        return pointOfInterestRepository.save(poi);
+        return pointOfInterestRepository.save(poi)
     }
 
     override fun findAllNearby(xCoordinate: Int, yCoordinate: Int, radius: Int): Page<PointOfInterest> {
