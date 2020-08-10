@@ -2,16 +2,16 @@ package com.xyinc.poiservice.repository
 
 import com.xyinc.poiservice.model.PointOfInterest
 import org.springframework.data.jpa.repository.Query
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.stereotype.Repository
 
 /**
- * Spring Data Repository for Point of Interests.
+ * Spring Data Paging & Sorting Repository for Point of Interests.
  *
  * @author Danilo Guimaraes
  */
 @Repository
-interface PointOfInterestRepository : CrudRepository<PointOfInterest, Long> {
+interface PointOfInterestRepository : PagingAndSortingRepository<PointOfInterest, Long> {
 
     /**
      * Given a point O(x, y) and a radius, find all PoIs in a square.

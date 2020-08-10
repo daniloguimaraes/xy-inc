@@ -1,6 +1,8 @@
 package com.xyinc.poiservice.service
 
 import com.xyinc.poiservice.model.PointOfInterest
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
 /**
  * Services for Points of Interest.
@@ -24,7 +26,7 @@ interface PointOfInterestService {
      *
      * @return all point of interests
      */
-    fun findAll(): List<PointOfInterest>;
+    fun findAll(pageable: Pageable): Page<PointOfInterest>;
 
     /**
      * Adds a new Point of Interest.
@@ -41,6 +43,6 @@ interface PointOfInterestService {
      * @param yCoordinate the y coordinate
      * @param radius the max distance radius allowed to be considered.
      */
-    fun findAllNearby(xCoordinate : Int, yCoordinate: Int, radius: Int) : List<PointOfInterest>;
+    fun findAllNearby(xCoordinate : Int, yCoordinate: Int, radius: Int) : Page<PointOfInterest>;
 
 }

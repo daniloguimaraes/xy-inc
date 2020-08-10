@@ -6,6 +6,9 @@ import com.xyinc.poiservice.repository.PointOfInterestRepository
 import com.xyinc.poiservice.service.PointOfInterestService
 import com.xyinc.poiservice.util.Geometry
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -25,8 +28,8 @@ class PointOfInterestServiceImpl(@Autowired val pointOfInterestRepository: Point
         }
     }
 
-    override fun findAll(): List<PointOfInterest> {
-        return pointOfInterestRepository.findAll().toList();
+    override fun findAll(pageable: Pageable): Page<PointOfInterest> {
+        return pointOfInterestRepository.findAll(pageable);
     }
 
     override fun add(poi: PointOfInterest): PointOfInterest {
@@ -35,7 +38,7 @@ class PointOfInterestServiceImpl(@Autowired val pointOfInterestRepository: Point
         return pointOfInterestRepository.save(poi);
     }
 
-    override fun findAllNearby(xCoordinate: Int, yCoordinate: Int, radius: Int): List<PointOfInterest> {
+    override fun findAllNearby(xCoordinate: Int, yCoordinate: Int, radius: Int): Page<PointOfInterest> {
         val minXCoordinate = xCoordinate - radius
         val maxXCoordinate = xCoordinate + radius
         val minYCoordinate = yCoordinate - radius
@@ -47,9 +50,9 @@ class PointOfInterestServiceImpl(@Autowired val pointOfInterestRepository: Point
                 minYCoordinate,
                 maxYCoordinate)
 
-        return allPointOfInterestInSquare.filter {
+        return PageImpl<PointOfInterest>(allPointOfInterestInSquare.filter {
             Geometry.calculateDistance(it.xCoordinate, it.yCoordinate, xCoordinate, yCoordinate) <= radius
-        }
+        })
     }
 
 }

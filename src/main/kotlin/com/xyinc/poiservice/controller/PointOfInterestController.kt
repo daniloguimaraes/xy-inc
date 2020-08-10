@@ -5,10 +5,11 @@ import com.xyinc.poiservice.service.PointOfInterestService
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.*
 import org.springframework.web.bind.annotation.*
-import java.lang.StringBuilder
 
 /**
  * Point of Interest REST Controller
@@ -22,8 +23,8 @@ internal class PointOfInterestController(val pointOfInterestService: PointOfInte
 
     @ApiOperation(value = "Returns all Points of Interest")
     @GetMapping
-    fun findAll(): ResponseEntity<List<PointOfInterest>> {
-        return ok(pointOfInterestService.findAll());
+    fun findAll(pageable: Pageable): ResponseEntity<Page<PointOfInterest>> {
+        return ok(pointOfInterestService.findAll(pageable));
     }
 
     @ApiOperation(value = "Creates a new Point of Interest")
@@ -36,7 +37,8 @@ internal class PointOfInterestController(val pointOfInterestService: PointOfInte
     @GetMapping(path= ["/nearby/{x}/{y}/{radius}"])
     fun findAllNearby(@PathVariable(required = true) @ApiParam("X Coordinate") x: Int,
                       @PathVariable(required = true) @ApiParam("Y Coordinate") y: Int,
-                      @PathVariable @ApiParam(value = "Radius", defaultValue = "10") radius: Int = 10): ResponseEntity<List<PointOfInterest>> {
+                      @PathVariable @ApiParam(value = "Radius", defaultValue = "10") radius: Int = 10)
+            : ResponseEntity<Page<PointOfInterest>> {
         return ok(pointOfInterestService.findAllNearby(x, y, radius));
     }
 

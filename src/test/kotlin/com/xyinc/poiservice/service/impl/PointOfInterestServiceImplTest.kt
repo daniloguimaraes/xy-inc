@@ -9,10 +9,18 @@ import org.amshove.kluent.shouldBeTrue
 import org.amshove.kluent.shouldNotThrowTheException
 import org.amshove.kluent.shouldThrowTheException
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers
+import org.mockito.ArgumentMatchers.any
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.BDDMockito.any
 import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 
 /**
  * Unit testing for PointOfInterestServiceImpl
@@ -141,9 +149,9 @@ class PointOfInterestServiceImplTest {
     @Test
     fun `Given 7 points of interest on database, when findAll, then it must return 7 POIs`() {
         // GIVEN
-        given(pointOfInterestRepository?.findAll()).willReturn(listOfPointOfInterest())
+        given(pointOfInterestRepository?.findAll(Pageable.unpaged())).willReturn(pageOfPointOfInterest())
 
-        val size = sut.findAll().size
+        val size = sut.findAll(Pageable.unpaged()).count()
 
         size shouldBe 7
     }
@@ -151,7 +159,8 @@ class PointOfInterestServiceImplTest {
     @Test
     fun `Given 7 points of interest on database AND I'm at (20,10), when i look for POI's not farthest than 10, then it must return 4 POIs`() {
         // GIVEN
-        given(pointOfInterestRepository?.findAll()).willReturn(listOfPointOfInterest())
+        given(pointOfInterestRepository?.findAllInSquare(anyInt(), anyInt(), anyInt(), anyInt()))
+                .willReturn(listOfPointOfInterest())
         val myXCoordinate = 20
         val myYCoordinate = 10
 
@@ -175,7 +184,7 @@ class PointOfInterestServiceImplTest {
         return PointOfInterest(id, name, xCoordinate, yCoordinate)
     }
 
-    private fun listOfPointOfInterest(): Iterable<PointOfInterest>? {
+    private fun listOfPointOfInterest(): MutableList<PointOfInterest> {
         return listOf(
                 createPointOfInterest(name = "Lanchonete", xCoordinate= 27, yCoordinate= 12),
                 createPointOfInterest(name = "Posto", xCoordinate= 31, yCoordinate= 18),
@@ -183,7 +192,11 @@ class PointOfInterestServiceImplTest {
                 createPointOfInterest(name = "Floricultura", xCoordinate= 19, yCoordinate= 21),
                 createPointOfInterest(name = "Pub", xCoordinate= 12, yCoordinate= 8),
                 createPointOfInterest(name = "Supermercado", xCoordinate= 23, yCoordinate= 6),
-                createPointOfInterest(name = "Churrascaria", xCoordinate= 28, yCoordinate= 2))
+                createPointOfInterest(name = "Churrascaria", xCoordinate= 28, yCoordinate= 2)).toMutableList();
+    }
+
+    private fun pageOfPointOfInterest(): Page<PointOfInterest>? {
+        return PageImpl<PointOfInterest>(listOfPointOfInterest());
     }
 
 }
