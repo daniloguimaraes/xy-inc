@@ -40,22 +40,4 @@ internal class PointOfInterestController(val pointOfInterestService: PointOfInte
         return ok(pointOfInterestService.findAllNearby(x, y, radius));
     }
 
-    @ApiOperation(value = "Returns all Points of Interest pair(s) of coordinate(s)",
-            notes = "All Points of Interest in the form '(x, y)'. Created for debugging purposes only.")
-    @GetMapping(path = ["/all-coordinates"])
-    fun allCoordinates(): ResponseEntity<String> {
-        val allPointsOfInterest = pointOfInterestService.findAll()
-
-        if (allPointsOfInterest.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        val sb = StringBuilder()
-        allPointsOfInterest.forEach {
-            sb.append("(%d, %d)\n".format(it.xCoordinate, it.yCoordinate))
-        }
-
-        return ok(sb.toString())
-    }
-
 }
